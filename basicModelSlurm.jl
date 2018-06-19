@@ -42,9 +42,9 @@ function main(cb,simulationNumber::Int64,P::InfluenzaParameters)
     end
 
     for t=1:P.sim_time
-        #if P.Model == 1
-        VI,VA,SI,SA = contact_dynamic2(humans,P,Fail_Contact_Matrix,Age_group_Matrix,Number_in_age_group,Contact_Matrix_General)
-        #SuccessMatrix[:,t],FailMatrix[:,t] = contact_dynamic2(humans,P,Fail_Contact_Matrix,Age_group_Matrix,Number_in_age_group,Contact_Matrix_General,Risk_Contact,t)
+       
+        contact_dynamic2(humans,P,Fail_Contact_Matrix,Age_group_Matrix,Number_in_age_group,Contact_Matrix_General)
+    
         for i=1:P.grid_size_human
             increase_timestate(humans[i],P)
         end

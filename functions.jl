@@ -237,13 +237,6 @@ end
 function contact_dynamic2(h::Array{Human},P::InfluenzaParameters,Fail_Contact_Matrix,Age_group_Matrix,Number_in_age_group,Contact_Matrix_General)#,Risk_Contact,t::Int64)
     NB = N_Binomial()
     ContactMatrix = ContactMatrixFunc()
-    ####Vector for risk
-    VI = zeros(Int64,15)
-    VA = zeros(Int64,15)
-    SI = zeros(Int64,15)
-    SA = zeros(Int64,15)
-    ####
-
    
     for i=1:P.grid_size_human
         if h[i].health == SUSC
@@ -255,7 +248,7 @@ function contact_dynamic2(h::Array{Human},P::InfluenzaParameters,Fail_Contact_Ma
                 if h[r].health == SYMP
                     if h[i].vaccinationStatus == 1
                         if rand()<(1-P.precaution_factorV)
-                            VI[h[i].contact_group] = VI[h[i].contact_group] + 1
+                           
                             if rand() < (P.Prob_transmission*(1-h[i].vaccineEfficacy))
                                 h[i].swap = LAT
                                 h[i].WhoInf = r
@@ -269,7 +262,7 @@ function contact_dynamic2(h::Array{Human},P::InfluenzaParameters,Fail_Contact_Ma
                         end
                     else 
                         if rand()<(1-P.precaution_factorS)
-                            SI[h[i].contact_group] = SI[h[i].contact_group] + 1
+                           
                             if rand()< P.Prob_transmission
                                 h[i].swap = LAT
                                 h[i].WhoInf = r
@@ -285,7 +278,7 @@ function contact_dynamic2(h::Array{Human},P::InfluenzaParameters,Fail_Contact_Ma
 
                 elseif h[r].health == ASYMP
                     if h[i].vaccinationStatus == 1
-                        VA[h[i].contact_group] = VA[h[i].contact_group] + 1
+                      
                         if rand() < (P.Prob_transmission*(1-h[i].vaccineEfficacy)*(1-P.reduction_factor))
                             h[i].swap = LAT
                             h[i].WhoInf = r
@@ -297,7 +290,7 @@ function contact_dynamic2(h::Array{Human},P::InfluenzaParameters,Fail_Contact_Ma
                            
                         end
                     else 
-                        SA[h[i].contact_group] = SA[h[i].contact_group] + 1
+                       
                         if rand()< (P.Prob_transmission*(1-P.reduction_factor))
                             h[i].swap = LAT
                             h[i].WhoInf = r
@@ -315,7 +308,6 @@ function contact_dynamic2(h::Array{Human},P::InfluenzaParameters,Fail_Contact_Ma
 
         end
     end ##close Grid human
-    return VI,VA,SI,SA 
 
 end
 
