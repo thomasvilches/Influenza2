@@ -15,8 +15,6 @@
     Latent_period_Min = 1
 
     Prob_transmission::Float64 = 0.079
-    InfectionTimeMax = 7
-    InfectionTimeMin = 4
     log_normal_mean::Float64 = 1.0
     log_normal_shape::Float64 = 0.4356
     

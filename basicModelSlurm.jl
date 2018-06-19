@@ -26,7 +26,6 @@ function main(cb,simulationNumber::Int64,P::InfluenzaParameters)
     latent_ctr = zeros(Int64,P.sim_time)##vector of results latent
     symp_ctr = zeros(Int64,P.sim_time) #vector for results symp 
     asymp_ctr = zeros(Int64,P.sim_time) #vector for results asymp 
-    Incidence = zeros(Int64,15,P.sim_time) #vector for calculating the proportion
 
     Fail_Contact_Matrix = zeros(Int64,15,15)
     Contact_Matrix_General = zeros(Int64,15,15)
@@ -49,7 +48,7 @@ function main(cb,simulationNumber::Int64,P::InfluenzaParameters)
         for i=1:P.grid_size_human
             increase_timestate(humans[i],P)
         end
-        latent_ctr[t],symp_ctr[t],asymp_ctr[t],Incidence[:,t]=update_human(humans,P)
+        latent_ctr[t],symp_ctr[t],asymp_ctr[t]=update_human(humans,P)
         cb(1) ## increase the progress metre by 1.. callback function
     end
     first_inf = find(x-> x.WhoInf == initial && x.WentTo == SYMP,humans)
@@ -67,9 +66,7 @@ function main(cb,simulationNumber::Int64,P::InfluenzaParameters)
     InfOrNot = zeros(Int64,P.grid_size_human)
     VacStatus = zeros(Int64,P.grid_size_human)
     Infection_Matrix = zeros(Int64,15,15)
-    #Infection_Matrix_average = zeros(Float64,15,15)
-    #Fail_Contact_Matrix_average = zeros(Float64,15,15)
-
+   
     for i = 1:P.grid_size_human
         
         Number_in_age_group[i] = humans[i].contact_group

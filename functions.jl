@@ -69,7 +69,6 @@ function update_human(h::Array{Human},P::InfluenzaParameters)
     n1::Int64 = 0
     n2::Int64 = 0
     n3::Int64 = 0
-    Incidence = zeros(Int64,15)
     for i=1:P.grid_size_human
         if h[i].swap == LAT
             make_human_latent(h[i],P)
